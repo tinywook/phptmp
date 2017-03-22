@@ -1,30 +1,27 @@
 <?php
-/*
+
 $redirect_url_requested_uri = $_SERVER['REQUEST_URI'];
 $redirect_url_requested_host = $_SERVER['HTTP_HOST'];
 $redirect_url_requested_scheme = $_SERVER['REQUEST_SCHEME'];
 
-$redirect_url_destination_url = get_field('vanitydomain');
+$redirect_url_destination_url = esc_attr( get_post_meta( $post->ID, '_team_url', true ) );
 $redirect_url_destination_host = $redirect_url_destination_url;
 $redirect_url_destination_host = str_replace( "http://.", "", $redirect_url_destination_host);
 $redirect_url_destination_host = str_replace( "https://.", "", $redirect_url_destination_host);
 $redirect_url_destination_host = str_replace( "www.", "", $redirect_url_destination_host);
 
 if (($redirect_url_requested_host != $redirect_url_destination_host) && (strlen($redirect_url_destination_host > "" )) && (strlen($redirect_url_requested_uri > "" )) ) {
-
-$redirect_url_final_url = $redirect_url_requested_scheme . "://" . $redirect_url_destination_host . $redirect_url_requested_uri ;
-header("HTTP/1.1 301 Moved Permanently");
-header("Location: " . $redirect_url_final_url);
+	$redirect_url_final_url = $redirect_url_requested_scheme . "://" . $redirect_url_destination_host . $redirect_url_requested_uri ;
+	header("HTTP/1.1 301 Moved Permanently");
+	header("Location: " . $redirect_url_final_url);
 }
 echo "| redirect_url_final_url = '" .$redirect_url_final_url . "' | ";
 echo "| Post type = '" . $post->post_type . "' |";
 echo "| Post link = '" . $post->$post_link . "' |";
 echo "| redirect_url_destination_path = '" . $redirect_url_destination_path . "' | ";
-print_r ($post->$post_link);
-*/
+
 ?>
 <!doctype html>
-
 
 <html <?php language_attributes(); ?> >
 <head>
@@ -127,6 +124,19 @@ $page_full_screen_rows = (isset($post->ID)) ? get_post_meta($post->ID, '_nectar_
 if($page_full_screen_rows == 'on') $smooth_scrolling = '0';
 
 ?>
+
+<style>
+
+/*
+get_post_meta( $post->ID, '_team_url', true )
+*/
+.container-wrap
+{
+background-image: url(https://s3.amazonaws.com/baum.viewstaging.com/<?php echo get_post_meta( $post->ID, '_team_id', true ) ?>.jpg) !important;
+background-size: cover;
+}
+</style>
+
 
 <body <?php body_class(); ?> data-footer-reveal="<?php echo $footer_reveal; ?>" data-footer-reveal-shadow="<?php echo $footer_reveal_shadow; ?>" data-cae="<?php echo $column_animation_easing; ?>" data-cad="<?php echo $column_animation_duration; ?>" data-aie="<?php echo $animate_in_effect; ?>" data-ls="<?php echo $lightbox_script;?>" data-apte="<?php echo $page_transition_effect;?>" data-hhun="<?php echo $hideHeaderUntilNeeded; ?>" data-fancy-form-rcs="<?php echo $fancy_rcs; ?>" data-form-style="<?php echo $form_style; ?>" data-is="<?php echo $icon_style; ?>" data-button-style="<?php echo $button_styling; ?>" data-header-inherit-rc="<?php echo (!empty($options['header-inherit-row-color']) && $options['header-inherit-row-color'] == '1' && $perm_trans != 1) ? "true" : "false"; ?>" data-header-search="<?php echo $headerSearch; ?>" data-animated-anchors="<?php echo (!empty($options['one-page-scrolling']) && $options['one-page-scrolling'] == '1') ? 'true' : 'false'; ?>" data-ajax-transitions="<?php echo (!empty($options['ajax-page-loading']) && $options['ajax-page-loading'] == '1') ? 'true' : 'false'; ?>" data-full-width-header="<?php echo $fullWidthHeader; ?>" data-slide-out-widget-area="<?php echo ($sideWidgetArea == '1') ? 'true' : 'false';  ?>" data-slide-out-widget-area-style="<?php echo $sideWidgetClass; ?>" data-user-set-ocm="<?php echo $userSetSideWidgetArea; ?>" data-loading-animation="<?php echo (!empty($options['loading-image-animation'])) ? $options['loading-image-animation'] : 'none'; ?>" data-bg-header="<?php echo $bg_header; ?>" data-ext-responsive="<?php echo (!empty($options['responsive']) && $options['responsive'] == 1 && !empty($options['ext_responsive']) && $options['ext_responsive'] == '1') ? 'true' : 'false'; ?>" data-header-resize="<?php echo $headerResize; ?>" data-header-color="<?php echo (!empty($options['header-color'])) ? $options['header-color'] : 'light' ; ?>" <?php echo (!empty($options['transparent-header']) && $options['transparent-header'] == '1') ? null : 'data-transparent-header="false"'; ?> data-smooth-scrolling="<?php echo $smooth_scrolling; ?>" data-permanent-transparent="<?php echo $perm_trans; ?>" data-responsive="<?php echo (!empty($options['responsive']) && $options['responsive'] == 1) ? '1'  : '0' ?>" >
 ||| |<?php $meta = get_post_meta( get_the_ID() ); ?>| |||
