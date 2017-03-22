@@ -1,0 +1,27 @@
+version: '2'
+services:
+  nginx:
+    image: evild/alpine-nginx:1.9.15-openssl
+    restart: always
+    links:
+      - php
+    volumes:
+      - ./.site:/var/www/html/:ro
+      - ./.nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
+      - ./.nginx/conf.d:/etc/nginx/conf.d:ro
+    ports:
+      - 80:80
+      - 443:443
+    container_name:
+      php-redirects-nginx
+  php:
+    image: evild/alpine-php:7.0.6
+    restart: always
+    container_name:
+      php-redirects-php
+    volumes:
+      - ./.site:/var/www/html
+
+
+
+      
