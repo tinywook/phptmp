@@ -73,26 +73,10 @@ add_action( 'pre_get_posts', 'sportsCamps_parse_request_trick' );
 
 function team_info_meta_box() {
     add_meta_box(
-        'team_id',
-        __( 'Team ID', 'sportsCamps' ),
-        'team_id_meta_box_callback'
+        'team_info',
+        __( 'Team Information', 'sportsCamps' ),
+        'team_info_meta_box_callback'
     );
-		add_meta_box(
-        'team_name',
-        __( 'Team Name', 'sportsCamps' ),
-        'team_name_meta_box_callback'
-    );
-		add_meta_box(
-        'team_url',
-        __( 'Custom URL', 'sportsCamps' ),
-        'team_url_meta_box_callback'
-    );
-		add_meta_box(
-        'coach_name',
-        __( 'Coach Name', 'sportsCamps' ),
-        'coach_name_meta_box_callback'
-    );
-
 /*
 		add_meta_box_(
 			string $id,
@@ -135,17 +119,25 @@ function save_team_info_meta_box_data( $post_id ) {
 	if ( ! isset( $_POST['team_id'] ) ) {
 		return;
 	}
-
-	//Insert Fields
 	$team_id = sanitize_text_field( $_POST['team_id'] );
-	$team_name = sanitize_text_field( $_POST['team_id'] );
-	$custom_url = sanitize_text_field( $_POST['team_id'] );
-	$coach_name = sanitize_text_field( $_POST['team_id'] );
-	$coach_bio = sanitize_text_field( $_POST['team_id'] );
 	update_post_meta( $post_id, '_team_info', $team_id );
 }
 add_action( 'save_post', 'save_team_info_meta_box_data' );
 
+
+
+
+
+function global_notice_meta_box() {
+
+    add_meta_box(
+        'global-notice',
+        __( 'Global Notice', 'sitepoint' ),
+        'global_notice_meta_box_callback'
+    );
+}
+
+add_action( 'add_meta_boxes', 'global_notice_meta_box' );
 
 
 
